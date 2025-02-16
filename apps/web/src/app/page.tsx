@@ -5,6 +5,10 @@ import { FolderSearch, Github, ChevronDown, Menu } from 'lucide-react';
 import Image from 'next/image';
 
 function App() {
+  const handleDownloadClick = () => {
+    alert('New version launching soon! Stay tuned.');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
       {/* Header */}
@@ -25,12 +29,19 @@ function App() {
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-indigo-600">Features</a>
               <a href="#pricing" className="text-gray-600 hover:text-indigo-600">Pricing</a>
-              <a href="#docs" className="text-gray-600 hover:text-indigo-600">Documentation</a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+              <a href="https://github.com/divyanshunegi/CapIQ" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-indigo-600">Documentation</a>
+              <a href="https://github.com/divyanshunegi/CapIQ" 
+                target="_blank" 
+                rel="noopener noreferrer" 
                 className="text-gray-600 hover:text-indigo-600">
                 <Github className="w-5 h-5" />
               </a>
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+              <button 
+                onClick={handleDownloadClick}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
                 Download for macOS
               </button>
             </nav>
@@ -61,13 +72,19 @@ function App() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <button className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2">
+              <button 
+                onClick={handleDownloadClick}
+                className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2">
                 <span>Download for macOS</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <button className="w-full sm:w-auto bg-white text-gray-700 px-8 py-3 rounded-lg border border-gray-200 hover:border-indigo-600 transition-colors">
+              <a 
+                href="https://github.com/divyanshunegi/CapIQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto bg-white text-gray-700 px-8 py-3 rounded-lg border border-gray-200 hover:border-indigo-600 transition-colors">
                 View Documentation
-              </button>
+              </a>
             </div>
             
             <p className="text-sm text-gray-500">
