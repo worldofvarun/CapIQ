@@ -22,7 +22,12 @@ export const metadata: Metadata = {
     title: "CapIQ - Intelligent Media Organization for macOS",
     description: "Streamline your media workflow with AI-powered organization and categorization for photographers & videographers.",
     url: "https://capiq.app",
+    images: '/meta.jpeg'
   },
+  twitter: {
+    card: 'summary_large_image',
+    images: '/meta.jpeg'
+  }
 };
 
 export default function RootLayout({

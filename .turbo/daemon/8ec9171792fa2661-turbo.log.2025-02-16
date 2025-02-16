@@ -21,3 +21,13 @@
 2025-02-16T09:09:16.588822Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
 2025-02-16T09:09:16.588843Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
 2025-02-16T09:09:16.588887Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:16:07.488057Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/public/icons/128x128@2x.png")}
+2025-02-16T09:16:07.488080Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:16:07.488128Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:16:08.787060Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/public/icons/128x128@2x.png")}
+2025-02-16T09:16:08.787070Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:16:08.787099Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:29:20.499738Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/public/meta.jpeg")}
+2025-02-16T09:29:20.499755Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:30:10.498712Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:30:10.498721Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
