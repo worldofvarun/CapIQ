@@ -4,3 +4,20 @@
 2025-02-16T09:00:56.689152Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Other("@capiq/desktop"), path: AnchoredSystemPathBuf("apps/desktop") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
 2025-02-16T09:01:23.589538Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_8788_af5fb07b2d9f60f9801548508032fa54"), AnchoredSystemPathBuf("")}
 2025-02-16T09:01:23.589556Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-02-16T09:09:08.588989Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:08.589008Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:10.788694Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:10.788714Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:10.788751Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:09:12.488725Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:12.488736Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:12.488757Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:09:12.688834Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:12.688843Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:12.688865Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:09:12.889480Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:12.889504Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:12.889581Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-02-16T09:09:16.588822Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/layout.tsx")}
+2025-02-16T09:09:16.588843Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("capiq-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-02-16T09:09:16.588887Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
