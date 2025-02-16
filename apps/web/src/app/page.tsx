@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { FolderSearch, Github, ChevronDown, Menu } from 'lucide-react';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { MagnifyingGlassIcon, ChevronDownIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 
 function App() {
   const handleDownloadClick = () => {
@@ -36,7 +37,7 @@ function App() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-600 hover:text-indigo-600">
-                <Github className="w-5 h-5" />
+                <GitHubLogoIcon className="w-5 h-5" />
               </a>
               <button 
                 onClick={handleDownloadClick}
@@ -46,7 +47,7 @@ function App() {
             </nav>
             
             <button className="md:hidden">
-              <Menu className="w-6 h-6 text-gray-600" />
+              <HamburgerMenuIcon className="w-6 h-6 text-gray-600" />
             </button>
           </div>
         </div>
@@ -57,7 +58,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 py-12 md:py-20">
             <div className="inline-flex items-center space-x-2 bg-indigo-50 px-4 py-2 rounded-full">
-              <FolderSearch className="w-5 h-5 text-indigo-600" />
+              <MagnifyingGlassIcon className="w-5 h-5 text-indigo-600" />
               <span className="text-sm font-medium text-indigo-600">Intelligent Media Organization</span>
             </div>
             
@@ -75,7 +76,7 @@ function App() {
                 onClick={handleDownloadClick}
                 className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2">
                 <span>Download for macOS</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDownIcon className="w-4 h-4" />
               </button>
               <a 
                 href="https://github.com/divyanshunegi/CapIQ"
