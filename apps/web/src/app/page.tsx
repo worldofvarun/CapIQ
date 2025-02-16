@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { FolderSearch, Github, ChevronDown, Menu } from 'lucide-react';
-import Image from 'next/image';
 
 function App() {
   const handleDownloadClick = () => {
@@ -16,7 +15,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <Image 
+              <img 
                 src="/icons/icon.png"  // Adjust this path based on your icon's location
                 alt="CapIQ Logo"
                 width={32}
