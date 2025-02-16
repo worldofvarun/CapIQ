@@ -96,7 +96,7 @@ function App() {
           <div className="relative mx-auto max-w-5xl">
             <div className="bg-gradient-to-b from-indigo-100 to-white rounded-2xl p-4">
               <img 
-                src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=1200&h=800"
+                src="/sample.png"
                 alt="CapIQ Interface"
                 className="rounded-xl shadow-2xl border border-gray-200"
               />
