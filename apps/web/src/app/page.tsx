@@ -1,101 +1,94 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React from 'react';
+import { FolderSearch, Github, ChevronDown, Menu } from 'lucide-react';
+import Image from 'next/image';
+
+function App() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+      {/* Header */}
+      <header className="fixed w-full bg-white/80 backdrop-blur-md z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-2">
+              <Image 
+                src="/icons/icon.png"  // Adjust this path based on your icon's location
+                alt="CapIQ Logo"
+                width={32}
+                height={32}
+                className="text-indigo-600"
+              />
+              <span className="text-xl font-bold text-gray-900">CapIQ</span>
+            </div>
+            
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-600 hover:text-indigo-600">Features</a>
+              <a href="#pricing" className="text-gray-600 hover:text-indigo-600">Pricing</a>
+              <a href="#docs" className="text-gray-600 hover:text-indigo-600">Documentation</a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-indigo-600">
+                <Github className="w-5 h-5" />
+              </a>
+              <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                Download for macOS
+              </button>
+            </nav>
+            
+            <button className="md:hidden">
+              <Menu className="w-6 h-6 text-gray-600" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <main className="pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-8 py-12 md:py-20">
+            <div className="inline-flex items-center space-x-2 bg-indigo-50 px-4 py-2 rounded-full">
+              <FolderSearch className="w-5 h-5 text-indigo-600" />
+              <span className="text-sm font-medium text-indigo-600">Intelligent Media Organization</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 max-w-4xl mx-auto leading-tight">
+              Streamline Your Photo & Video Workflow
+            </h1>
+            
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Automate your media organization with AI-powered sorting, labeling, and categorization. 
+              Perfect for photographers and videographers managing large libraries.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+              <button className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2">
+                <span>Download for macOS</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              <button className="w-full sm:w-auto bg-white text-gray-700 px-8 py-3 rounded-lg border border-gray-200 hover:border-indigo-600 transition-colors">
+                View Documentation
+              </button>
+            </div>
+            
+            <p className="text-sm text-gray-500">
+              Compatible with macOS 11.0 (Big Sur) and later
+            </p>
+          </div>
+
+          {/* Hero Image */}
+          <div className="relative mx-auto max-w-5xl">
+            <div className="bg-gradient-to-b from-indigo-100 to-white rounded-2xl p-4">
+              <img 
+                src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=1200&h=800"
+                alt="CapIQ Interface"
+                className="rounded-xl shadow-2xl border border-gray-200"
+              />
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
+
+export default App;
