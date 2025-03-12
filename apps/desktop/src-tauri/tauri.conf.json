@@ -20,7 +20,7 @@
         "resizable": true,
         "title": "CapIQ",
         "width": 800,
-        "visible": false
+        "visible": true
       }
     ]
   },
