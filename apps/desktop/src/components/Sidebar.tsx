@@ -5,10 +5,20 @@ import {
   Cog6ToothIcon,
   ChevronDownIcon,
 } from '@heroicons/react/24/outline';
-
+import { Button } from './ui/Button';
+import { CreateProjectDialog } from './ui/CreateProjectDialog';
+import { useProjectCreation } from '../hooks/useProjectCreation';
 
 export const Sidebar = () => {
   const [isProjectsExpanded, setIsProjectsExpanded] = useState(true);
+  const {
+    isDialogOpen,
+    setIsDialogOpen,
+    fileCount,
+    defaultProjectName,
+    handleFileSelection,
+    handleProjectCreation,
+  } = useProjectCreation();
 
   return (
     <aside className="h-full bg-[#1C1C1E] text-white">
@@ -32,10 +42,14 @@ export const Sidebar = () => {
         </div>
 
         {/* Import Button */}
-        <button className="mx-4 mt-6 flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:from-blue-600 hover:to-blue-700">
-          <FolderPlusIcon className="mr-2 h-5 w-5" />
-          Import Footage
-        </button>
+        <div className="mx-4 mt-6">
+          <Button 
+            icon={<FolderPlusIcon className="h-5 w-5" />}
+            onClick={handleFileSelection}
+          >
+            Import Footage
+          </Button>
+        </div>
 
         {/* Projects Section */}
         <div className="mt-8 flex-1 px-4">
@@ -60,6 +74,14 @@ export const Sidebar = () => {
           </button>
         </div>
       </div>
+
+      <CreateProjectDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onConfirm={handleProjectCreation}
+        defaultName={defaultProjectName}
+        fileCount={fileCount}
+      />
     </aside>
   );
 };

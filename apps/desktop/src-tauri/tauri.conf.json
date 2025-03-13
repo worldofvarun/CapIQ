@@ -57,5 +57,10 @@
       "digestAlgorithm": "sha256",
       "timestampUrl": ""
     }
+  },
+  "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": true
+    }
   }
 }
