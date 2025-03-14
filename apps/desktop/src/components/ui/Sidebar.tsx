@@ -5,9 +5,9 @@ import {
   Cog6ToothIcon,
   ChevronDownIcon,
 } from '@heroicons/react/24/outline';
-import { Button } from './ui/Button';
-import { CreateProjectDialog } from './ui/CreateProjectDialog';
-import { useProjectCreation } from '../hooks/useProjectCreation';
+import { Button } from './Button.tsx';
+import { CreateProjectDialog } from '../media/CreateProjectDialog';
+import { useProjectCreation } from '@/hooks/useProjectCreation.ts';
 
 export const Sidebar = () => {
   const [isProjectsExpanded, setIsProjectsExpanded] = useState(true);
@@ -43,7 +43,7 @@ export const Sidebar = () => {
 
         {/* Import Button */}
         <div className="mx-4 mt-6">
-          <Button 
+          <Button
             icon={<FolderPlusIcon className="h-5 w-5" />}
             onClick={handleFileSelection}
           >
