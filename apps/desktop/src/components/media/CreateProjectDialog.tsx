@@ -19,7 +19,7 @@ export const CreateProjectDialog = ({
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      
+
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="mx-auto w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
           <div className="flex items-center justify-between">
@@ -49,7 +49,10 @@ export const CreateProjectDialog = ({
           </div>
 
           <div className="mt-6">
-            <label htmlFor="projectName" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="projectName"
+              className="block text-sm font-medium text-gray-700"
+            >
               Project Name
             </label>
             <input
@@ -71,7 +74,9 @@ export const CreateProjectDialog = ({
             </button>
             <button
               onClick={() => {
-                const input = document.getElementById('projectName') as HTMLInputElement;
+                const input = document.getElementById(
+                  'projectName',
+                ) as HTMLInputElement;
                 onConfirm(input.value);
               }}
               className="rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
@@ -83,4 +88,4 @@ export const CreateProjectDialog = ({
       </div>
     </Dialog>
   );
-}; 
+};
