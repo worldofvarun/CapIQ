@@ -14,6 +14,7 @@ export const DropZone = () => {
     defaultProjectName,
     handleFileSelection,
     handleProjectCreation,
+    processFiles,
   } = useProjectCreation();
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -25,10 +26,14 @@ export const DropZone = () => {
     setIsDragging(false);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    handleFileSelection();
+
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) {
+      await processFiles(files);
+    }
   };
 
   return (
