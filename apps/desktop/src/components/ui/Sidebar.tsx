@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MagnifyingGlassIcon,
   FolderPlusIcon,
@@ -10,6 +11,7 @@ import { CreateProjectDialog } from '../media/CreateProjectDialog';
 import { useProjectCreation } from '@/hooks/useProjectCreation.ts';
 
 export const Sidebar = () => {
+  const navigate = useNavigate();
   const [isProjectsExpanded, setIsProjectsExpanded] = useState(true);
   const {
     isDialogOpen,
@@ -68,7 +70,10 @@ export const Sidebar = () => {
 
         {/* Settings */}
         <div className="mt-auto border-t border-gray-800 p-4">
-          <button className="flex w-full items-center rounded-md px-2 py-1.5 text-sm text-gray-300 hover:bg-gray-800">
+          <button 
+            onClick={() => navigate('/settings')}
+            className="flex w-full items-center rounded-md px-2 py-1.5 text-sm text-gray-300 hover:bg-gray-800"
+          >
             <Cog6ToothIcon className="mr-2 h-5 w-5" />
             Settings
           </button>
