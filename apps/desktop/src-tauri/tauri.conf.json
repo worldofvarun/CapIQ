@@ -62,6 +62,9 @@
   "plugins": {
     "fs": {
       "requireLiteralLeadingDot": true
+    },
+    "sql": {
+      "preload": ["sqlite:capteriq.db"]
     }
   }
 }

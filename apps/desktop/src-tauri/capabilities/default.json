@@ -18,6 +18,11 @@
         }
       ]
     },
-    "opener:default"
+    "opener:default",
+    "sql:default",
+    "sql:allow-load",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "sql:allow-close"
   ]
 }

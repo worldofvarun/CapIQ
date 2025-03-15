@@ -3,7 +3,7 @@ import { FolderIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
 import { CreateProjectDialog } from './CreateProjectDialog';
-import { useProjectCreation } from '@/hooks/useProjectCreation.ts';
+import { useProjectCreation } from '@/hooks/useProjectCreation';
 
 export const DropZone = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -15,6 +15,8 @@ export const DropZone = () => {
     handleFileSelection,
     handleProjectCreation,
     processFiles,
+    isCreating,
+    error,
   } = useProjectCreation();
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -61,6 +63,7 @@ export const DropZone = () => {
         <Button variant="secondary" onClick={handleFileSelection}>
           Browse Files
         </Button>
+        {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
       </motion.div>
 
       <CreateProjectDialog
@@ -69,6 +72,8 @@ export const DropZone = () => {
         onConfirm={handleProjectCreation}
         defaultName={defaultProjectName}
         fileCount={fileCount}
+        isCreating={isCreating}
+        error={error}
       />
     </>
   );

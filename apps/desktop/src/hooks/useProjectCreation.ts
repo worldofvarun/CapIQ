@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { open } from '@tauri-apps/plugin-dialog';
 import { readDir } from '@tauri-apps/plugin-fs';
-import { basename } from '@tauri-apps/api/path';
+import { basename, dirname } from '@tauri-apps/api/path';
+import { generateProjectId, sanitizeProjectName } from '@/utils/projectUtils';
+import { useDatabaseStore } from '@/stores/databaseStore';
 
 const VIDEO_EXTENSIONS = [
   '.mp4',
@@ -11,65 +13,108 @@ const VIDEO_EXTENSIONS = [
   '.wmv',
   '.flv',
   '.webm',
-];
+] as const;
+
+interface ProjectCreationState {
+  isDialogOpen: boolean;
+  fileCount: number;
+  defaultProjectName: string;
+  selectedFiles: File[];
+  isCreating: boolean;
+  error: string | null;
+  selectedDirectory: string | null;
+}
+
+const initialState: ProjectCreationState = {
+  isDialogOpen: false,
+  fileCount: 0,
+  defaultProjectName: '',
+  selectedFiles: [],
+  isCreating: false,
+  error: null,
+  selectedDirectory: null,
+};
 
 export const useProjectCreation = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [fileCount, setFileCount] = useState(0);
-  const [defaultProjectName, setDefaultProjectName] = useState('');
+  const [state, setState] = useState<ProjectCreationState>(initialState);
+  const processingRef = useRef(false);
 
-  const countVideoFiles = async (path: string): Promise<number> => {
-    try {
-      const entries = await readDir(path);
-      let count = 0;
-      console.log(entries);
-      for (const entry of entries) {
-        if ('children' in entry) {
-          count += await countVideoFiles(entry.path);
-        } else if (entry.name) {
-          const ext = entry.name
-            .toLowerCase()
-            .slice(entry.name.lastIndexOf('.'));
-          if (VIDEO_EXTENSIONS.includes(ext)) {
-            count++;
-          }
+  const {
+    createProject,
+    addFilesToProject,
+    initializeDatabase,
+    isInitialized,
+    db,
+    triggerRefresh,
+  } = useDatabaseStore();
+
+  const resetState = useCallback(() => {
+    setState(initialState);
+  }, []);
+
+  const ensureDatabase = async () => {
+    if (!isInitialized || !db) {
+      try {
+        await initializeDatabase();
+        if (!db) {
+          throw new Error('Database failed to initialize properly');
         }
+      } catch (error) {
+        console.error('Failed to initialize database:', error);
+        throw new Error('Failed to initialize database. Please try again.');
       }
-
-      return count;
-    } catch (error) {
-      console.error('Error counting video files:', error);
-      return 0;
     }
   };
 
-  const processFiles = async (files: File[]) => {
-    try {
-      let totalCount = 0;
-      let folderName = '';
-
-      for (const file of files) {
-        const ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
-        if (VIDEO_EXTENSIONS.includes(ext)) {
-          totalCount++;
-          if (!folderName) {
-            folderName = file.name.split('.')[0];
-          }
-        }
-      }
-
-      if (totalCount > 0) {
-        setFileCount(totalCount);
-        setDefaultProjectName(folderName);
-        setIsDialogOpen(true);
-      }
-    } catch (error) {
-      console.error('Error processing files:', error);
-    }
+  const isVideoFile = (filename: string): boolean => {
+    const ext = filename.toLowerCase().slice(filename.lastIndexOf('.'));
+    return VIDEO_EXTENSIONS.includes(ext as (typeof VIDEO_EXTENSIONS)[number]);
   };
 
-  const handleFileSelection = async () => {
+  const processFiles = useCallback(
+    async (files: File[], directoryName?: string) => {
+      if (processingRef.current) return;
+      processingRef.current = true;
+
+      try {
+        const videoFiles = files.filter((file) => isVideoFile(file.name));
+
+        if (videoFiles.length === 0) {
+          setState((prev) => ({
+            ...prev,
+            error: 'No valid video files found',
+          }));
+          return;
+        }
+
+        const newProjectName = directoryName
+          ? sanitizeProjectName(directoryName)
+          : sanitizeProjectName(
+              (await basename(videoFiles[0].name)).split('.')[0],
+            );
+
+        setState((prev) => ({
+          ...prev,
+          selectedFiles: videoFiles,
+          fileCount: videoFiles.length,
+          defaultProjectName: newProjectName,
+          isDialogOpen: true,
+          error: null,
+        }));
+      } catch (error) {
+        console.error('Error processing files:', error);
+        setState((prev) => ({ ...prev, error: 'Failed to process files' }));
+      } finally {
+        processingRef.current = false;
+      }
+    },
+    [],
+  );
+
+  const handleFileSelection = useCallback(async () => {
     try {
+      await ensureDatabase();
+
       const selected = await open({
         multiple: true,
         directory: true,
@@ -84,8 +129,8 @@ export const useProjectCreation = () => {
       if (!selected) return;
 
       const paths = Array.isArray(selected) ? selected : [selected];
-      let totalCount = 0;
-      let folderName = '';
+      const files: File[] = [];
+      let directoryName: string | undefined;
 
       for (const path of paths) {
         if (typeof path === 'string') {
@@ -94,41 +139,97 @@ export const useProjectCreation = () => {
             .catch(() => false);
 
           if (isDirectory) {
-            const count = await countVideoFiles(path);
-            totalCount += count;
-            if (!folderName) {
-              folderName = await basename(path);
+            directoryName = await basename(path);
+            setState((prev) => ({ ...prev, selectedDirectory: path }));
+
+            const entries = await readDir(path, { recursive: true });
+            for (const entry of entries) {
+              if ('children' in entry || !isVideoFile(entry.name)) continue;
+
+              const relativePath = `${directoryName}/${entry.name}`;
+              const file = new File([], entry.name, { type: 'video/*' });
+              Object.defineProperty(file, 'webkitRelativePath', {
+                value: relativePath,
+                writable: false,
+              });
+              files.push(file);
             }
-          } else {
-            totalCount++;
-            if (!folderName) {
-              folderName = await basename(path);
-            }
+          } else if (isVideoFile(path)) {
+            const fileName = await basename(path);
+            files.push(new File([], fileName, { type: 'video/*' }));
           }
         }
       }
 
-      if (totalCount > 0) {
-        setFileCount(totalCount);
-        setDefaultProjectName(folderName);
-        setIsDialogOpen(true);
-      }
+      await processFiles(files, directoryName);
     } catch (error) {
       console.error('Error selecting files:', error);
+      setState((prev) => ({ ...prev, error: 'Failed to select files' }));
     }
-  };
+  }, [processFiles]);
 
-  const handleProjectCreation = async (projectName: string) => {
-    // TODO: Implement project creation logic
-    console.log('Creating project:', projectName);
-    setIsDialogOpen(false);
-  };
+  const handleProjectCreation = useCallback(
+    async (projectName: string) => {
+      const { selectedFiles, selectedDirectory } = state;
+      if (!selectedFiles.length) {
+        setState((prev) => ({ ...prev, error: 'No files selected' }));
+        return;
+      }
+
+      setState((prev) => ({ ...prev, isCreating: true, error: null }));
+
+      try {
+        await ensureDatabase();
+
+        const projectId = generateProjectId();
+        const baseDir =
+          selectedDirectory || (await dirname(selectedFiles[0].name));
+
+        // Create project in database
+        await createProject({
+          project_id: projectId,
+          project_name: projectName,
+          base_dir: baseDir,
+          status: 'processing',
+        });
+
+        // Add files to project
+        const projectFiles = selectedFiles.map((file) => ({
+          project_id: projectId,
+          file_path: file.webkitRelativePath || file.name,
+        }));
+
+        try {
+          await addFilesToProject(projectFiles);
+        } catch (fileError) {
+          console.error('Error adding files to project:', fileError);
+          // Continue with project creation even if file addition fails
+        }
+
+        resetState();
+        triggerRefresh();
+      } catch (error) {
+        console.error('Error creating project:', error);
+        setState((prev) => ({
+          ...prev,
+          error:
+            error instanceof Error &&
+            error.message.includes('database is locked')
+              ? 'Database is busy. Please wait a moment and try again.'
+              : 'Failed to create project. Please try again.',
+        }));
+        throw error;
+      } finally {
+        setState((prev) => ({ ...prev, isCreating: false }));
+      }
+    },
+    [state, createProject, addFilesToProject, resetState, triggerRefresh],
+  );
 
   return {
-    isDialogOpen,
-    setIsDialogOpen,
-    fileCount,
-    defaultProjectName,
+    ...state,
+    setIsDialogOpen: (isOpen: boolean) =>
+      setState((prev) => ({ ...prev, isDialogOpen: isOpen })),
     handleFileSelection,
     handleProjectCreation,
     processFiles,

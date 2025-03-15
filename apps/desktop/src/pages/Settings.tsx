@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/authStore';
-import { KeyIcon, ExclamationTriangleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import {
+  KeyIcon,
+  ExclamationTriangleIcon,
+  ArrowTopRightOnSquareIcon,
+} from '@heroicons/react/24/outline';
 import { openUrl } from '@tauri-apps/plugin-opener';
 import { useNavigate } from 'react-router-dom';
 import { useValidateApiKey } from '@/stores/authStore';
@@ -81,14 +85,18 @@ export const Settings = () => {
                 <KeyIcon className="h-5 w-5 text-blue-500" />
               </div>
               <div>
-                <h2 className="text-lg font-medium text-gray-900">API Settings</h2>
+                <h2 className="text-lg font-medium text-gray-900">
+                  API Settings
+                </h2>
                 <p className="mt-1 text-sm text-gray-500">
                   Configure your OpenAI API key for AI-powered features
                 </p>
               </div>
             </div>
             <button
-              onClick={() => handleOpenUrl('https://platform.openai.com/api-keys')}
+              onClick={() =>
+                handleOpenUrl('https://platform.openai.com/api-keys')
+              }
               className="inline-flex items-center space-x-1 text-sm text-blue-500 hover:text-blue-600"
             >
               <span>Get API Key</span>
@@ -111,7 +119,7 @@ export const Settings = () => {
                       setError(null);
                     }}
                     placeholder="sk-..."
-                    className={`block w-full rounded-md border pl-10 pr-4 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                    className={`block w-full rounded-md border py-2 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
                       error ? 'border-red-500' : 'border-gray-300'
                     }`}
                   />
@@ -136,7 +144,8 @@ export const Settings = () => {
                     </h3>
                     <div className="mt-2 text-sm text-yellow-700">
                       <p>
-                        Your API key is currently active. Clearing it will disable AI features until a new key is provided.
+                        Your API key is currently active. Clearing it will
+                        disable AI features until a new key is provided.
                       </p>
                     </div>
                   </div>
@@ -148,7 +157,7 @@ export const Settings = () => {
               <button
                 onClick={handleClearApiKey}
                 disabled={isClearing || !apiKey}
-                className="inline-flex items-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isClearing ? 'Clearing...' : 'Clear API Key'}
               </button>
@@ -156,7 +165,7 @@ export const Settings = () => {
                 <button
                   onClick={handleUpdateApiKey}
                   disabled={isValidating || !newApiKey.trim()}
-                  className="inline-flex items-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isValidating ? 'Validating...' : 'Update API Key'}
                 </button>
@@ -182,7 +191,9 @@ export const Settings = () => {
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      You haven't provided an OpenAI API key. Some features will be disabled. Would you like to proceed without an API key or provide one now?
+                      You haven't provided an OpenAI API key. Some features will
+                      be disabled. Would you like to proceed without an API key
+                      or provide one now?
                     </p>
                   </div>
                 </div>
@@ -209,4 +220,4 @@ export const Settings = () => {
       )}
     </div>
   );
-}; 
+};
